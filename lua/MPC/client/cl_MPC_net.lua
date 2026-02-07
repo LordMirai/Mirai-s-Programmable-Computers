@@ -15,9 +15,9 @@ local net = net
 -- * RECIEVING
 
 
-net.Receive("MAddon_Message", function()
+net.Receive("MPC_Message", function()
     local msg = net.ReadString()
     local col = net.ReadColor()
 
-    MAddon.Message(msg, col)
+    MPC.Message(msg, col)
 end)

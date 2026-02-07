@@ -1,42 +1,42 @@
-include("MAddon/sh_MAddon.lua")
-include("MAddon/sh_MAddon_enums.lua")
-include("MAddon/sh_MAddon_configuration.lua")
+include("MPC/sh_MPC.lua")
+include("MPC/sh_MPC_enums.lua")
+include("MPC/sh_MPC_configuration.lua")
 
 
 
 if SERVER then
-    include("MAddon/server/sv_MAddon.lua")
-    include("MAddon/server/sv_MAddon_utils.lua")
-    include("MAddon/server/sv_net_messages.lua")
-    include("MAddon/server/sv_net.lua")
+    include("MPC/server/sv_MPC.lua")
+    include("MPC/server/sv_MPC_utils.lua")
+    include("MPC/server/sv_net_messages.lua")
+    include("MPC/server/sv_net.lua")
 end
 
 
 
 if CLIENT then
-    include("MAddon/client/cl_MAddon.lua")
-    include("MAddon/client/cl_MAddon_net.lua")
-    include("MAddon/client/cl_MAddon_gui.lua")
-    include("MAddon/client/cl_MAddon_hud.lua")
+    include("MPC/client/cl_MPC.lua")
+    include("MPC/client/cl_MPC_net.lua")
+    include("MPC/client/cl_MPC_gui.lua")
+    include("MPC/client/cl_MPC_hud.lua")
 end
 
 
 -- AddCSLua in the same order as above
-AddCSLuaFile("MAddon/sh_MAddon.lua")
-AddCSLuaFile("MAddon/sh_MAddon_enums.lua")
-AddCSLuaFile("MAddon/sh_MAddon_configuration.lua")
+AddCSLuaFile("MPC/sh_MPC.lua")
+AddCSLuaFile("MPC/sh_MPC_enums.lua")
+AddCSLuaFile("MPC/sh_MPC_configuration.lua")
 
-AddCSLuaFile("MAddon/client/cl_MAddon.lua")
-AddCSLuaFile("MAddon/client/cl_MAddon_net.lua")
-AddCSLuaFile("MAddon/client/cl_MAddon_gui.lua")
-AddCSLuaFile("MAddon/client/cl_MAddon_hud.lua")
+AddCSLuaFile("MPC/client/cl_MPC.lua")
+AddCSLuaFile("MPC/client/cl_MPC_net.lua")
+AddCSLuaFile("MPC/client/cl_MPC_gui.lua")
+AddCSLuaFile("MPC/client/cl_MPC_hud.lua")
 
 
 -- if you have any modules or other files that need to be included, do it here
 
-for _, v in ipairs(file.Find("MAddon/modules/*.lua", "LUA")) do
-    include("MAddon/modules/" .. v)
-    AddCSLuaFile("MAddon/modules/" .. v)
+for _, v in ipairs(file.Find("MPC/modules/*.lua", "LUA")) do
+    include("MPC/modules/" .. v)
+    AddCSLuaFile("MPC/modules/" .. v)
 end
 
 

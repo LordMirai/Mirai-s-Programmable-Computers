@@ -17,8 +17,8 @@ function ENT:Draw()
     ang:RotateAroundAxis(ang:Up(), -90)
 
     cam.Start3D2D(pos, ang, 0.1)
-        draw.RoundedBox(0, -50, -20, 200, 40, MAddon.BLACK, 5, 5)
-        draw.SimpleText("I'm so cool", MAddon.FONT, -35, 0, MAddon.WHITE, TEXT_ALIGN_LEFT, TEXT_ALIGN_CENTER)
+        draw.RoundedBox(0, -50, -20, 200, 40, MPC.BLACK, 5, 5)
+        draw.SimpleText("I'm so cool", MPC.FONT, -35, 0, MPC.WHITE, TEXT_ALIGN_LEFT, TEXT_ALIGN_CENTER)
     cam.End3D2D()
     ]]
 end

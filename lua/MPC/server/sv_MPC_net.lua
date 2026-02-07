@@ -5,26 +5,19 @@ local net = net
 -- ! SENDING
 
 
-function MAddon.net.Message(ply, msg, col, broadcast)
+function MPC.net.Message(ply, msg, col, broadcast)
     if not IsValid(ply) or not ply:IsPlayer() then return end
     if not msg or msg == "" then return end
 
-    net.Start("MAddon_Message")
+    net.Start("MPC_Message")
     net.WriteString(msg)
-    net.WriteColor(col or MAddon.WHITE)
+    net.WriteColor(col or MPC.WHITE)
     if broadcast then
         net.Broadcast()
     else
         net.Send(ply)
     end
 end
-
-
-
-
-
-
-
 
 
 

@@ -1,8 +1,8 @@
 SWEP.Base = "weapon_base"
-SWEP.PrintName = "MAddon SWEP"
+SWEP.PrintName = "MPC SWEP"
 SWEP.Author = "Lord Mirai (未来)"
 SWEP.Instructions = "Left click to use"
-SWEP.Category = "MAddon"
+SWEP.Category = "MPC"
 
 SWEP.Spawnable = true
 SWEP.AdminOnly = false

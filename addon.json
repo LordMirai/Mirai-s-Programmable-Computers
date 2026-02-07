@@ -1,0 +1,18 @@
+{
+	"title"		:	"Mirai's Programmable Computers",
+	"type"		:	"ServerContent",
+	"tags"		:	[ "roleplay", "realism" ],
+	"ignore"	:
+	[
+		"addon.json",
+        "README.md",
+        "LICENSE",
+        "CHANGELOG.md",
+        ".gitignore",
+        ".gitattributes",
+        ".editorconfig",
+        ".vscode",
+        ".VSCodeCounter",
+        ".git"
+	]
+}

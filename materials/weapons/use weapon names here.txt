@@ -1,0 +1,2 @@
+if you have a custom weapon, give its spawnmenu icon here
+(e.g. MAddon_cool_weapon.png)

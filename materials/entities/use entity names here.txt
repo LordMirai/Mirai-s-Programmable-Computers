@@ -1,0 +1,2 @@
+if you have a custom entity, give its spawnmenu icon here
+(e.g. MAddon_cool_entity.png)

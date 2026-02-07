@@ -1,0 +1,3 @@
+for best performance, use .WAV files
+
+REMEMBER TO CAP THE SAMPLE RATE TO 44100!!! (48k won't work)

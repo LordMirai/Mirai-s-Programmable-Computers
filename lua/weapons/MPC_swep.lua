@@ -1,8 +1,8 @@
 SWEP.Base = "weapon_base"
-SWEP.PrintName = "MPC SWEP"
+SWEP.PrintName = "MPC SWEP TBD"
 SWEP.Author = "Lord Mirai (未来)"
 SWEP.Instructions = "Left click to use"
-SWEP.Category = "MPC"
+SWEP.Category = "Mirai's Programmable Computers"
 
 SWEP.Spawnable = true
 SWEP.AdminOnly = false

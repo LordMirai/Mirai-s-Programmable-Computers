@@ -2,8 +2,16 @@ AddCSLuaFile("shared.lua")
 AddCSLuaFile("cl_init.lua")
 include("shared.lua")
 
+--[[
+STEP ONE: Architecture
 
-local fallbackModel = "models/props_c17/oildrum001.mdl" -- Default model if none is specified
+REGISTERS - $R0 -> $R15 -- can hold strings and numbers
+Stack - LIFO
+Execution Cycle --! LEFT FOR LATER
+
+]]
+
+local fallbackModel = "models/monitors/monitor_03.mdl" -- Default model if none is specified
 
 function ENT:Initialize()
     if self.PreInit then
@@ -24,6 +32,10 @@ function ENT:Initialize()
 
     self.UseCooldown = 1
 
+    self:InitializeArchitecture()
+
+
+
     if self.PostInit then
         self:PostInit()
     end
@@ -35,16 +47,39 @@ end
 function ENT:Use(ply, cal)
     if not self.CanUse then return end
 
-    -- Your use logic here
+    self:OpenTerminal()
 
-    --[[
-    ? if you want cooldown, uncomment this
-    
     self.CanUse = false
     timer.Simple(self.UseCooldown, function()
         if IsValid(self) then
             self.CanUse = true
         end
     end)
-    ]]
+end
+
+
+function ENT:InitializeArchitecture()
+    self.IsPoweredOn = false
+    self.Stack = util.Stack()
+
+    self.Registers = {}
+    for i = 0, 15 do
+        self.Registers[i] = 0
+    end
+
+    self.IP = 0 -- Instruction Pointer
+    self.RA = -1 -- Return Address
+end
+
+function ENT:DumpRegisters()
+    for i = 0, 15 do
+        print("$R"..i.." = ", tostring(self.Registers[i]))
+    end
+end
+
+
+
+
+function ENT:OpenTerminal()
+    
 end

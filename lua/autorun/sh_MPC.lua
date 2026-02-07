@@ -7,8 +7,8 @@ include("MPC/sh_MPC_configuration.lua")
 if SERVER then
     include("MPC/server/sv_MPC.lua")
     include("MPC/server/sv_MPC_utils.lua")
-    include("MPC/server/sv_net_messages.lua")
-    include("MPC/server/sv_net.lua")
+    include("MPC/server/sv_MPC_net_messages.lua")
+    include("MPC/server/sv_MPC_net.lua")
 end
 
 
@@ -32,12 +32,35 @@ AddCSLuaFile("MPC/client/cl_MPC_gui.lua")
 AddCSLuaFile("MPC/client/cl_MPC_hud.lua")
 
 
--- if you have any modules or other files that need to be included, do it here
 
-for _, v in ipairs(file.Find("MPC/modules/*.lua", "LUA")) do
-    include("MPC/modules/" .. v)
-    AddCSLuaFile("MPC/modules/" .. v)
+local function recurseListContents(path, addon, direct, pattern)
+    local files, dirs = file.Find(path .. "*", addon)
+    local matchedFiles = {}
+
+    for _, v in ipairs(files) do
+        local fullPath = path .. v
+        if not pattern or string.match(fullPath, pattern) then
+            table.insert(matchedFiles, fullPath)
+        end
+    end
+    if direct then return matchedFiles end
+
+    for _, dir in ipairs(dirs) do
+        local subFiles = recurseListContents(path .. dir .. "/", addon, false, pattern)
+        for _, file in ipairs(subFiles) do
+            table.insert(matchedFiles, file)
+        end
+    end
+
+    return matchedFiles
+end
+
+local moduleFiles = recurseListContents("MPC/modules/", "LUA", false, "%.lua$")
+for _, file in ipairs(moduleFiles) do
+    include(file)
+    AddCSLuaFile(file)
 end
 
 
-print("\n [[[  Mirai Addon Base Template loaded successfully  ]]] \n")
+
+print("\n\n [[[  Mirai's Programmable Computers loaded successfully  ]]] \n")

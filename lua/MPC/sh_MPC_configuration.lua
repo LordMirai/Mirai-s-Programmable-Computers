@@ -3,4 +3,4 @@
 MPC.Config.Debug = true
 MPC.Config.MessageHeadColor = MPC.WHITE
 
-MPC.Config.CommandPrefix = "!"
+MPC.Config.CommandPrefix = "$"

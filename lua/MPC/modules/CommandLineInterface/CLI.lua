@@ -264,8 +264,26 @@ function MPC.CLI.EvaluateCommand(currentComputer, cmdTable, tokens, startIndex)
 end
 
 
+-- 5. Command Execution
+function MPC.CLI.ExecuteCommand(currentComputer, cmdInstance)
+    if not cmdInstance or type(cmdInstance.func) ~= "function" then
+        return { type = "error", message = "Command execution failed: No valid function found." }
+    end
 
-
+    -- Use pcall to prevent the whole CLI from crashing if a command errors
+    local success, result = pcall(cmdInstance.func, cmdInstance.args, cmdInstance.flags, currentComputer)
+    
+    if success then
+        -- Enforce structured response
+        if type(result) == "table" and result.type and result.message then
+            return result
+        else
+            return { type = "info", message = tostring(result) or "Command executed successfully without output." }
+        end
+    else
+        return { type = "error", message = "Runtime Error: " .. tostring(result) }
+    end
+end
 
 
 

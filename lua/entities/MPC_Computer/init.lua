@@ -69,6 +69,11 @@ function ENT:InitializeArchitecture()
 
     self.IP = 0 -- Instruction Pointer
     self.RA = -1 -- Return Address
+
+    self.SystemVariables = {}
+    self.UserVariables = {}
+
+    self.Cache = {} -- Command cache for the currently loaded command schemas
 end
 
 function ENT:DumpRegisters()

@@ -55,11 +55,19 @@ local function recurseListContents(path, addon, direct, pattern)
     return matchedFiles
 end
 
-local moduleFiles = recurseListContents("MPC/modules/", "LUA", false, "%.lua$")
-for _, file in ipairs(moduleFiles) do
-    include(file)
-    AddCSLuaFile(file)
+local function includeFolder(folderPath)
+    local files = recurseListContents(folderPath, "LUA", false, "%.lua$")
+    for _, file in ipairs(files) do
+        include(file)
+        AddCSLuaFile(file)
+    end
 end
+
+
+
+
+includeFolder("MPC/modules/")
+includeFolder("MPC/classes/")
 
 
 

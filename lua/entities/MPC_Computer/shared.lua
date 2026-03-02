@@ -13,6 +13,8 @@ end
 
 MPC = MPC or {}
 
+ENT.IsComputer = true
+
 --[[
 
 0. Entity initialization

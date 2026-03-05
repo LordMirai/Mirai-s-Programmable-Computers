@@ -7,7 +7,6 @@ MPC.Contact = "https://github.com/LordMirai"
 MPC.License = "CC 1.0 Universal (CC0 1.0)"
 
 
-MPC.Config = MPC.Config or {}
 MPC.net = MPC.net or {}
 
 print("sh_MPC.lua reloaded")

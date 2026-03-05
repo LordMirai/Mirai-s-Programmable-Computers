@@ -82,6 +82,19 @@ MPC.CLI.Libraries = MPC.CLI.Libraries or {}
 MPC.CLI.Aliases = MPC.CLI.Aliases or {} -- Alias library
 
 
+function MPC.RegisterCommand(cmdTable)
+    if not cmdTable or not cmdTable.name then
+        print("[MPC] Error: Invalid command schema. 'name' field is required.")
+        return
+    end
+
+    if MPC.CLI.Commands[cmdTable.name] then
+        print("[MPC] Warning: Command '" .. cmdTable.name .. "' is being overwritten.")
+    end
+
+    print("[MPC] Registering command: " .. cmdTable.name) -- ! Remove after testing
+    MPC.CLI.Commands[cmdTable.name] = cmdTable
+end
 
 
 

@@ -47,7 +47,7 @@ end
 function ENT:Use(ply, cal)
     if not self.CanUse then return end
 
-    self:OpenTerminal()
+    self:OpenTerminal(ply)
 
     self.CanUse = false
     timer.Simple(self.UseCooldown, function()
@@ -85,6 +85,51 @@ end
 
 
 
-function ENT:OpenTerminal()
-    
+function ENT:OpenTerminal(user)
+    -- for now, it'll be a derma popup, eventually it's gonna be cast to computer monitor, Maxnet-style
+    if self.user and IsValid(self.user) and self.user != user then
+        MPC.Message(user, "This computer is currently in use by " .. self.user:Nick())
+        return
+    end
+    self.user = user
+    MPC.net.OpenTerminal(user, self)
+end
+
+function ENT:print(msg)
+    MPC.net.SendLine(self, msg)
+end
+
+
+
+
+function ENT:RunCommand(text)
+    -- Tokenize the input text
+    local tokens = MPC.CLI.Tokenize(text)
+
+    -- Resolve aliases
+    tokens = MPC.CLI.ResolveAlias(tokens)
+
+    -- Fetch the command schema
+    local cmdTable, consumedTokens = MPC.CLI.FetchCommand(tokens, self)
+    if not cmdTable then
+        self:print("Error: Command not found.")
+        return
+    end
+
+    -- Evaluate the command
+    local cmdInstance = MPC.CLI.EvaluateCommand(self, cmdTable, tokens, consumedTokens + 1)
+
+    -- Execute the command
+    local response = MPC.CLI.ExecuteCommand(self, cmdInstance)
+
+    -- Handle the response
+    if response.message then
+        if response.type == "error" then
+            self:print("Error: " .. response.message)
+        elseif response.type == "info" then
+            self:print(response.message)
+        elseif response.type == "warning" then
+            self:print("Warning: " .. response.message)
+        end
+    end
 end

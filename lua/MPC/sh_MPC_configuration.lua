@@ -1,6 +1,7 @@
--- any fields to fall into configuration
+MPC.Debug = true
+MPC.MessageHeadColor = Color(255, 235, 100)
 
-MPC.Config.Debug = true
-MPC.Config.MessageHeadColor = MPC.WHITE
+MPC.CommandPrefix = "$"
 
-MPC.Config.CommandPrefix = "$"
+
+MPC.TerminalMaxLines = 100

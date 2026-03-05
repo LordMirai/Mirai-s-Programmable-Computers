@@ -1,3 +1,0 @@
--- GUI code. IF you use any sort of "main" menu, you should bind it to something I call TopLevel
--- this works for outside reference, live update and whatnot.
--- for example   MPC.CoolMenuTopLevel = frame

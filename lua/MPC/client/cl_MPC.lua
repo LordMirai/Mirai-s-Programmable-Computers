@@ -8,7 +8,7 @@ function MPC.Message(msg, col, noHead)
     if noHead then
         chat.AddText(col, msg)
     else
-        chat.AddText(MPC.Config.MessageHeadColor, "[MPC]  ", col, msg)
+        chat.AddText(MPC.MessageHeadColor, "[MPC]  ", col, msg)
     end
 end
 

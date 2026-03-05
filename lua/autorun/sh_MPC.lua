@@ -18,6 +18,8 @@ if CLIENT then
     include("MPC/client/cl_MPC_net.lua")
     include("MPC/client/cl_MPC_gui.lua")
     include("MPC/client/cl_MPC_hud.lua")
+    include("MPC/client/cl_MPC_terminal_gui.lua")
+    include("MPC/client/cl_MPC_clientCommands.lua")
 end
 
 
@@ -66,8 +68,8 @@ end
 
 
 
-includeFolder("MPC/modules/")
 includeFolder("MPC/classes/")
+includeFolder("MPC/modules/")
 
 
 

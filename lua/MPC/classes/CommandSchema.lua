@@ -26,7 +26,7 @@ testCommand = CommandSchema.New(
     "Utility",
     {
         {name = "arg1", type = "string"}, -- optional=false by default
-        {name = "arg2", type = "number", optional = true}
+        {name = "arg2", type = "number", optional = true, default=321}
     },
     {
         verbose = {type = "boolean", description = "Enable verbose output."},
@@ -112,7 +112,7 @@ function CommandSchema:EnsureFlagIntegrity()
             end
         end
     end
-
+end
 
 -- ? For execution
 -- Validate arguments against the schema
@@ -167,3 +167,5 @@ function CommandSchema:ValidateFlags(flags)
 
     return true
 end
+
+MPC.CommandSchema = CommandSchema

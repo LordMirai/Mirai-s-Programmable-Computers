@@ -32,7 +32,8 @@ AddCSLuaFile("MPC/client/cl_MPC.lua")
 AddCSLuaFile("MPC/client/cl_MPC_net.lua")
 AddCSLuaFile("MPC/client/cl_MPC_gui.lua")
 AddCSLuaFile("MPC/client/cl_MPC_hud.lua")
-
+AddCSLuaFile("MPC/client/cl_MPC_terminal_gui.lua")
+AddCSLuaFile("MPC/client/cl_MPC_clientCommands.lua")
 
 
 local function recurseListContents(path, addon, direct, pattern)

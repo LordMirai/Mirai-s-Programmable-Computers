@@ -12,6 +12,9 @@ function CommandSchema.New(name, description, category, argList, flgList, func, 
     self.aliases = {} -- Aliases for the command
     self.examples = {} -- Examples of how to use the command
 
+    self.builtIn = builtIn or false
+    self.hidden = false -- If true, command won't show up in help
+
     self.requiredArgs = 0
     self:CalculateRequiredArgs()
     self:EnsureArgumentIntegrity()
@@ -56,6 +59,10 @@ end
 -- Set the category for the command
 function CommandSchema:SetCategory(category)
     self.category = category
+end
+
+function CommandSchema:SetHidden(hidden)
+    self.hidden = hidden
 end
 
 function CommandSchema:CalculateRequiredArgs()

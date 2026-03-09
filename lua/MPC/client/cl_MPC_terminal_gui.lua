@@ -1,9 +1,11 @@
 local function addLine(frame, pnl, text, col)
-    local line = pnl:Add("DLabel")
+    local line = vgui.Create("DLabel", pnl)
     line:SetText(text)
     line:SetTextColor(col or MPC.WHITE)
     line:SetFont("Trebuchet24")
     line:SizeToContents()
+    line:Dock(TOP)
+    line:DockMargin(0, 0, 0, 5)
 
     pnl:ScrollToChild(line)
 end
@@ -33,6 +35,7 @@ function MPC.TerminalMenu(ent)
     -- history and output panel
     local linePnl = vgui.Create("DScrollPanel", frame)
     linePnl:Dock(FILL)
+    linePnl:SetPadding(5)
     linePnl:SetBackgroundColor(Color(33, 33, 33))
     linePnl:GetVBar():SetVisible(true)
 

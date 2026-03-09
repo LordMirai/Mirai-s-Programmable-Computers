@@ -205,6 +205,7 @@ end
 
 -- 4. Command Evaluation
 function MPC.CLI.ResolveVariable(currentComputer, val)
+    -- if the token could be a variable, try to look it up
     if val:sub(1, 1) == "$" then
         local varName = val:sub(2)
         if varName:lower():StartsWith("r") then
@@ -284,15 +285,23 @@ function MPC.CLI.ExecuteCommand(currentComputer, cmdInstance)
     end
 
     -- Use pcall to prevent the whole CLI from crashing if a command errors
-    local success, result = pcall(cmdInstance.func, cmdInstance.args, cmdInstance.flags, currentComputer)
-    
+    local success, result = pcall(function()
+        return cmdInstance.func(cmdInstance.args, cmdInstance.flags, currentComputer)
+    end)
+
     if success then
-        -- Enforce structured response
-        if type(result) == "table" and result.type and result.message then
-            return result
-        else
-            return { type = "info", message = tostring(result) or "Command executed successfully without output." }
+        -- Collect all return values from the function
+        local results = { select(1, result) }
+        if #results == 0 then
+            return { type = "info", message = "Command executed successfully." }
         end
+
+        -- Enforce structured response
+        if type(results[1]) == "table" and results[1].type and results[1].message then
+            return results[1]
+        end
+
+        return results
     else
         return { type = "error", message = "Runtime Error: " .. tostring(result) }
     end

@@ -73,13 +73,63 @@ function ENT:InitializeArchitecture()
     self.SystemVariables = {}
     self.UserVariables = {}
 
+    self.SystemVariables.Test = "This is making sure the variable works correctly!"
+
     self.Cache = {} -- Command cache for the currently loaded command schemas
+
+    -- Assembly-like flags. These greatly depend on "the last command" executed, especially regarding $R0
+    self.Flags = {
+        ZF = false, -- Zero Flag
+        SF = false, -- Sign Flag - 1 = negative, 0 = positive
+        CF = false  -- Carry Flag
+    }
+end
+
+function MPC.RegNum(reg)
+    if tonumber(reg) then
+        reg = math.Clamp(math.floor(tonumber(reg)), 0, 15)
+        return tonumber(reg)
+    end
+    local regNum = reg:lower():match("^r(%d+)$") or reg:lower():match("^%$r(%d+)$")
+    if regNum then
+        regNum = math.Clamp(math.floor(tonumber(regNum)), 0, 15)
+        return tonumber(regNum)
+    end
+    return nil
 end
 
 function ENT:DumpRegisters()
     for i = 0, 15 do
-        print("$R"..i.." = ", tostring(self.Registers[i]))
+        self:print("$R"..i.." = ", tostring(self.Registers[i]))
     end
+end
+
+function ENT:RR(reg) -- read register
+    local regNum = MPC.RegNum(reg)
+    if regNum then
+        return self.Registers[regNum] or 0
+    end
+
+    return 0
+end
+
+function ENT:WR(reg, value) -- write register
+    local regNum = MPC.RegNum(reg)
+
+    if tonumber(value) then
+        value = tonumber(value)
+    else
+        value = string.Trim(tostring(value))
+    end
+    
+    self:UpdateFlags(value)
+
+    self.Registers[regNum] = value
+end
+
+function ENT:UpdateFlags(value)
+    self.Flags.ZF = (value == 0) or value == "" -- Zero Flag
+    self.Flags.SF = (type(value) == "number" and value < 0) or 0  -- Sign Flag
 end
 
 
@@ -124,6 +174,10 @@ function ENT:RunCommand(text)
 
     -- Handle the response
     if response.message then
+        if string.Trim(response.message) == "" then
+            return
+        end
+
         if response.type == "error" then
             self:print("Error: " .. response.message)
         elseif response.type == "info" then

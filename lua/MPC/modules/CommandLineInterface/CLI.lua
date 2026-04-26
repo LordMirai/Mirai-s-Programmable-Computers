@@ -240,7 +240,15 @@ function MPC.CLI.EvaluateCommand(currentComputer, cmdTable, tokens, startIndex)
 
         if type(token) == "string" and token:sub(1, 1) == "-" then
             -- It's a flag. Strip leading dashes (supports both -v and --tail)
-            local flagName = token:match("^%-+(.+)")
+            local flagName = token:match("^%-+(.+)") -- Extract flag name after leading dashes
+
+            -- ! WAIT! If the flag is a number, assume it's simply a negative number argument, not a flag. E.g. "echo -5" should print "-5", not treat "-5" as a flag.
+            if tonumber(flagName) then
+                table.insert(cmdInstance.args, token) -- Add the original token (e.g., "-5") as an argument
+                i = i + 1
+                continue
+            end
+
             local expectedSchema = schemaFlags[flagName]
 
             if expectedSchema then
